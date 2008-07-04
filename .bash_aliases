@@ -8,7 +8,9 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias s='cd ~-'
 alias svndiff='svn diff --diff-cmd diff -x -b'
-alias svnst='svn st | grep ^M'
+alias svnst='svn st | grep ^[ACDM]'
+alias gitdiff='git diff --color'
+alias gitst='git status | grep modified'
 if [ "$TERM" != "dumb" ]; then
     alias ls='ls -h --color=auto'
 fi
