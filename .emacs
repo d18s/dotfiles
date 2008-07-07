@@ -1,6 +1,6 @@
 
 ;; todo don't ask if i want to delete excessive backups!
-;; todo wrap long lines
+;; todo wrap long lines?
 
 ;;;;;;;;;;;;;;
 ;; START UP ;;
