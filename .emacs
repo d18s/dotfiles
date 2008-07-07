@@ -2,8 +2,7 @@
 ;; VARIABLES ;;
 ;;;;;;;;;;;;;;;
 
-;; don't show the gnu splash screen
-(setq inhibit-startup-message t) 
+(setq inhibit-startup-message t) ; don't show the gnu splash screen
 (setq visible-bell t)
 ;;(setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
@@ -54,10 +53,8 @@
 ;;(require 'emacs-goodies-el)		; not for osx
 (require 'font-lock)
 (require 'paren)
-;;(require 'redo)
+(require 'redo)
 ;; (require 'tramp)
-;;(autoload 'redo "redo")
-;;(load "redo")
 
 ;;;;;;;;;;;
 ;; FRAME ;;
