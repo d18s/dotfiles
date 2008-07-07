@@ -1,5 +1,5 @@
 
-;; todo don't ask if i want to delete excessive backups!
+;; todo don't ask if i want to delete excessive backups
 ;; todo wrap long lines?
 
 ;;;;;;;;;;;;;;
