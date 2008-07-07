@@ -86,6 +86,8 @@
         (height . 100)))
 (setq frame-title-format ;; set title to show file name or buffer name
       '(buffer-file-name "%f" ("%b")))
+;; display all faces: M-x list-faces-display
+(set-face-foreground 'minibuffer-prompt "white")
 (set-face-background 'fringe "black")
 (fset 'yes-or-no-p 'y-or-n-p) ;; make all "yes or no" prompts show "y or n" instead
 ;; (setq make-backup-files nil) ;; Don't want any backup files
