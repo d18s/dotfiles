@@ -39,7 +39,6 @@
 (blink-cursor-mode -1)        ;; flashing cursor
 (column-number-mode 1)        ;; use column numbering
 (delete-selection-mode 1)     ;; insert over region a la Aquamacs
-(fringe-mode -1)              ;; get rid of that fringe boy!
 (global-font-lock-mode 1)     ;; syntax highlighting
 (iswitchb-mode 1)             ;; better buffer switching
 (line-number-mode 1)          ;; use line numbering
@@ -49,6 +48,7 @@
 (tool-bar-mode -1)            ;; don't show toolbar
 (transient-mark-mode 1)       ;; highlight region
 (cond (window-system
+       (fringe-mode -1)       ;; get rid of that fringe boy!
        (scroll-bar-mode -1))) ;; stop terminals complaining
 ;; (longlines-mode t)
 
