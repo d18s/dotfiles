@@ -1,30 +1,6 @@
-;;;;;;;;;;;;;;;
-;; VARIABLES ;;
-;;;;;;;;;;;;;;;
 
-(setq inhibit-startup-message t) ; don't show the gnu splash screen
-(setq visible-bell t)
-;;(setq-default tab-width 4)
-(setq-default indent-tabs-mode nil)
-
-;;;;;;;;;;;
-;; MODES ;;
-;;;;;;;;;;;
-
-(menu-bar-mode -1)          ;; don't show menu
-(tool-bar-mode -1)          ;; don't show toolbar
-(line-number-mode 1)        ;; use line numbering
-(column-number-mode 1)      ;; use column numbering
-(cond (window-system
-       (scroll-bar-mode -1) ;; stop terminals complaining
-       (require 'color-theme)
-       ))
-
-
-;; tabs
-;; (tabbar-mode nil)
-;; (global-set-key "\M-1" 'tabbar-backward)
-;; (global-set-key "\M-2" 'tabbar-forward)
+;; todo don't ask if i want to delete excessive backups!
+;; todo wrap long lines
 
 ;;;;;;;;;;;;;;
 ;; START UP ;;
@@ -38,7 +14,6 @@
 ;; after initialising
 (add-hook 'after-init-hook 
           '(lambda ()
-;;              (reset-buffers)
              ))
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -46,118 +21,82 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (add-to-list 'load-path "~/elisp")
-;;(add-to-list 'load-path (expand-file-name "~/.elisp"))
-
 (require 'cc-mode)
-
-;;(require 'emacs-goodies-el)		; not for osx
 (require 'font-lock)
 (require 'paren)
 (require 'redo)
+(cond (window-system
+       (require 'color-theme)
+       (color-theme-classic)
+       ))
+;; (require 'emacs-goodies-el)
 ;; (require 'tramp)
 
 ;;;;;;;;;;;
-;; FRAME ;;
+;; MODES ;;
 ;;;;;;;;;;;
 
-;; Set initial frame location and size
-(setq default-frame-alist
-      '((top . 0)
-        (left . 0)
-        (width . 200)
-        (height . 100)
-        ))
-
-;; Show the time
-;;(display-time)
-
-;; Include current buffer name in the title bar
-;;(setq frame-title-format "%b - emacs")
-;; Or set the title bar to show file name if available, buffer name otherwise
-(setq frame-title-format 
-      '(buffer-file-name "%f" ("%b")
-                         ))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; FONTS, COLOURS & HIGHLIGHTING ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; todo sort this stuff out
-;; (cond ((null window-system))
-;;  ((fboundp 'global-font-lock-mode)
-;;   (setq font-lock-maximum-decoration t)
-;;   (global-font-lock-mode t)
-;;   (if (load "lazy-lock" t)
-;;   (add-hook 'font-lock-mode-hook 'turn-on-lazy-lock))))
-
-;; Tasteful theme from color-theme.el via emacs-goodies-el
+(blink-cursor-mode -1)        ;; flashing cursor
+(column-number-mode 1)        ;; use column numbering
+(delete-selection-mode 1)     ;; insert over region a la Aquamacs
+(fringe-mode -1)              ;; get rid of that fringe boy!
+(global-font-lock-mode 1)     ;; syntax highlighting
+(iswitchb-mode 1)             ;; better buffer switching
+(line-number-mode 1)          ;; use line numbering
+(menu-bar-mode -1)            ;; don't show menu
+(mouse-wheel-mode 1)          ;; enable wheel-mouse scrolling
+(show-paren-mode 1)           ;; show matching parenthesis
+(tool-bar-mode -1)            ;; don't show toolbar
+(transient-mark-mode 1)       ;; highlight region
 (cond (window-system
-       (color-theme-classic)
-       ))
+       (scroll-bar-mode -1))) ;; stop terminals complaining
+;; (longlines-mode t)
 
-;; Font lock
-(global-font-lock-mode t)
+;;;;;;;;;;;;;;;
+;; VARIABLES ;;
+;;;;;;;;;;;;;;;
 
-;; Font size
-
-;; Highlight incremental search
-(setq search-highlight t)
-
-;; Show matching parenthesis. How can you live without it.
-(show-paren-mode t)
-
-;; Highlight region
-(transient-mark-mode t)
-
-;;;;;;;;;;
-;; MISC ;;
-;;;;;;;;;;
-
-;; Lines are automatically wrapped when the cursor goes beyond the column limit
-(setq auto-fill-mode t)
-
-;; The fill column influences how Emacs justifies paragraphs
-(setq-default fill-column 75)
-
+(setq auto-fill-mode t) ;; lines are automatically wrapped when the cursor goes beyond the column limit
+(setq case-fold-search t) ;; make searches case insensitive
 (setq comment-multi-line t)
-
+(setq inhibit-startup-message t) ;; don't show the gnu splash screen
+(setq make-backup-files t) ;; do want to backup files
+(setq next-line-add-newlines nil) ;; disallow new lines when you press the down arrow at end of the buffer
+(setq require-final-newline t) ;; silently ensure newline at end of file
+(setq search-highlight t) ;; highlight incremental search
+(setq version-control t) ;; enable versioning with default values
+(setq visible-bell t) ;; visual bell instead of annoying beep
+(setq visible-bell t) ;; no beeps
+(setq scroll-step 1) ;; do only one line scrolling
+(setq tramp-default-method "ssh") ;; tramp defaults
+(setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/")))) ;; save all backup file in this directory.
+(setq confirm-kill-emacs 'yes-or-no-p) ;; ask if I'm sure when quitting
+(setq-default indent-tabs-mode nil)
+(setq-default fill-column 75) ;; the fill column influences how Emacs justifies paragraphs
+(setq default-major-mode 'text-mode) ;; set major mode to text mode by default
 ;; Ignore case when completing filenames
 ;;(setq completion-ignore-case t) ;; no!!!
 (setq read-file-name-completion-ignore-case t) ;; yes!!!
+(setq completion-ignored-extensions ;; ignore these file extensions as possible completions
+      '(".o" "~"))
+(setq default-frame-alist ;; set initial frame location and size
+      '((top . 0)
+        (left . 0)
+        (width . 200)
+        (height . 100)))
+(setq frame-title-format ;; set title to show file name or buffer name
+      '(buffer-file-name "%f" ("%b")))
+(fset 'yes-or-no-p 'y-or-n-p) ;; make all "yes or no" prompts show "y or n" instead
+;; (setq make-backup-files nil) ;; Don't want any backup files
+;; (setq auto-save-default nil) ;; Don't want any auto saving
+;; (setq modifier-keys-are-sticky t) ;; sticky modifier keys
+;; (setq-default tab-width 4)
+;; (setq-default truncate-lines t)
+;; (set-fill-column 120)
 
-;; Ignore these file extensions as possible completions
-(setq completion-ignored-extensions
-      '(".o" "~")
-      )
-
-;; Make searches case insensitive
-(setq case-fold-search t)
-
-;; Do only one line scrolling
-(setq scroll-step 1)
-
-;; Flashing cursor
-(blink-cursor-mode -1)
-
-;; Visual bell instead of annoying beep
-(setq visible-bell 0)
-
-;; Ask if I'm sure when quitting
-(setq confirm-kill-emacs 'yes-or-no-p)
-
-;; Make all "yes or no" prompts show "y or n" instead
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; Disallow new lines when you press the down arrow at end of the buffer
-(setq next-line-add-newlines nil)
-
-;; Insert over region a la Aquamacs
-(delete-selection-mode t)
-
-;; todo wrap long lines
-;;(setq-default truncate-lines t)
-;;(longlines-mode t)
-;;(set-fill-column 120)
+;;;;;;;;;;;;;;;;;;
+;; KEY BINDINGS ;;
+;;;;;;;;;;;;;;;;;;
 
 ;; Go to the matching parenthesis when you press
 ;; ! if on parenthesis otherwise insert !
@@ -165,57 +104,7 @@
   (interactive "p")
   (cond ((looking-at "[([{]") (forward-sexp 1) (backward-char))
 	((looking-at "[])}]") (forward-char) (backward-sexp 1))
-	(t (self-insert-command (or arg 1)))
-	))
-
-(global-set-key "!" 'goto-matching-paren-or-insert)
-
-;; Silently ensure newline at end of file
-(setq require-final-newline t)
-;; or make Emacs ask about missing newline
-;; (setq require-final-newline 'ask)
-
-;; Tramp defaults
-(setq tramp-default-method "ssh")
-
-;; Don't want any backup files
-;;(setq make-backup-files nil)
-
-;; Do want to backup files
-(setq make-backup-files t)
-
-;; Enable versioning with default values
-(setq version-control t)
-
-;; todo don't ask if i want to delete excessive backups!
-
-;; Save all backup file in this directory.
-(setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
-
-;; Better buffer switching
-(iswitchb-mode t)
-
-;; Don't want any auto saving
-;;(setq auto-save-default nil)
-
-;; Get intermittent messages to stop typing
-;;(type-break-mode)
-
-;; Run delete-trailing-whitespace when exiting a file
-;;M-x delete-trailing-whitespace
-
-;; sticky modifier keys
-;; (setq modifier-keys-are-sticky t)
-
-;; Highlight current line
-;; (global-hl-line-mode t)
-
-;; Enable wheel-mouse scrolling
-(mouse-wheel-mode t)
-
-;;;;;;;;;;;;;;;;;;
-;; KEY BINDINGS ;;
-;;;;;;;;;;;;;;;;;;
+	(t (self-insert-command (or arg 1)))))
 
 (defun scroll-up-fixed-point ()
   (interactive) (scroll-up 1)
@@ -231,12 +120,8 @@
   (beginning-of-line)
   (kill-line))
 
-;; Will make "Ctrl-k" kill an entire line if the cursor is at the beginning of line
-(setq kill-whole-line t)
-
 (global-set-key "\C-j" 'comment-or-uncomment-region)
 (global-set-key "\C-q" 'copy-region-as-kill)
-
 (global-set-key "\M-_" 'redo)
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\M-m" 'scroll-up-fixed-point)
@@ -246,60 +131,40 @@
 (global-set-key "\M-r" 'replace-regexp)
 (global-set-key "\M-s" 'replace-string)
 (global-set-key "\M-k" 'kill-line-x)
-
+(global-set-key "!" 'goto-matching-paren-or-insert)
 (global-set-key [(shift up)] 'scroll-down-fixed-point)
 (global-set-key [(shift down)] 'scroll-up-fixed-point)
-
-;; Spacebar as filename completion
-(cond (window-system
-       (define-key minibuffer-local-filename-completion-map
-	 " " 'minibuffer-complete-word)
-       ))
 
 ;; Let Emacs type pairs of parens
 (global-set-key "[" 'skeleton-pair-insert-maybe)
 (global-set-key "(" 'skeleton-pair-insert-maybe)
 (global-set-key "{" 'skeleton-pair-insert-maybe)
 ;;(global-set-key "<" 'skeleton-pair-insert-maybe)
-;;(global-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
-;;(global-set-key (kbd "'") 'skeleton-pair-insert-maybe)
+(global-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
+(global-set-key (kbd "'") 'skeleton-pair-insert-maybe)
 (setq skeleton-pair t)
 
-;; Windows key as meta
-;; done in system > preferences > keyboard > layout options
+;; n.b. Windows key as meta, done in system > preferences > keyboard > layout options
 
 ;; Aquamacs stuff
 (when (boundp 'aquamacs-version)
-  ;;deactivate cut-copy-paste
-  (cua-mode 0)
+  (cua-mode 0) ;;deactivate cut-copy-paste
   )
 
 ;; Carbon Emacs stuff
-(when (boundp 'carbon-emacs-package-version)
-  ;; switch apple key and alt
-  (setq mac-command-modifier 'alt mac-option-modifier 'meta)
-  ;; get rid of that fringe boy!
-  (fringe-mode -1)
+(when (boundp 'carbon-emacs-package-version)  
+  (setq mac-command-modifier 'alt mac-option-modifier 'meta) ;; switch apple key and alt
   )
 
 ;;;;;;;;;;
 ;; TEXT ;;
 ;;;;;;;;;;
 
-;; Set major mode to text mode by default
-(setq default-major-mode 'text-mode)
-
-;; todo sort this out
 (add-hook 'text-mode-hook
 	  (turn-on-auto-fill)
 	  (setq fill-column 80)
 	  ;;(ispell-change-dictionary "british")
           )
-
-;; todo Change dictionary to British
-;;(ispell-change-dictionary "british")
-
-(setq-default c-basic-offset 2)
 
 ;;;;;;;;;;;;;;;;
 ;; JAVASCRIPT ;;
@@ -310,9 +175,9 @@
 (add-hook 'java-mode-hook
 	  '(lambda ()
 	     ;; auto indent on return
-	     (define-key java-mode-map (kbd "RET") 'newline-and-indent)
+	     ;; (define-key java-mode-map (kbd "RET") 'newline-and-indent)
 	     ;; delete hungrily
- 	     (define-key java-mode-map [backspace] 'c-hungry-delete)
+ 	     ;; (define-key java-mode-map [backspace] 'c-hungry-delete)
 	     ))
 
 ;;;;;;;;;
@@ -335,14 +200,16 @@
 (add-hook 'python-mode-hook
 	  '(lambda ()
 	     ;; auto indent on return
-;; 	     (define-key python-mode-map (kbd "RET") 'newline-and-indent)
+ 	     ;; (define-key python-mode-map (kbd "RET") 'newline-and-indent)
 	     ;; delete hungrily
-;; 	     (define-key python-mode-map [backspace] 'c-hungry-delete)
+ 	     ;; (define-key python-mode-map [backspace] 'c-hungry-delete)
 	     ))
 
 ;;;;;;;;;
 ;; C++ ;;
 ;;;;;;;;;
+
+(setq-default c-basic-offset 2)
 
 ;; Load c++-mode in .h files
 (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
@@ -380,6 +247,5 @@
 ;; On closing
 (add-hook 'kill-emacs-hook
 	  '(lambda ()
-             ;; Save session
- 	     (desktop-save "~/") 
-          ))
+ 	     (desktop-save "~/") ;; save session
+             ))
