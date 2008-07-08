@@ -47,16 +47,16 @@
 (show-paren-mode 1)           ;; show matching parenthesis
 (tool-bar-mode -1)            ;; don't show toolbar
 (transient-mark-mode 1)       ;; highlight region
+(longlines-mode -1)
 (cond (window-system
        (fringe-mode -1)       ;; get rid of that fringe boy!
        (scroll-bar-mode -1))) ;; stop terminals complaining
-;; (longlines-mode t)
 
 ;;;;;;;;;;;;;;;
 ;; VARIABLES ;;
 ;;;;;;;;;;;;;;;
 
-(setq auto-fill-mode t) ;; lines are automatically wrapped when the cursor goes beyond the column limit
+(setq kill-whole-line t) ;; will make "ctrl-k" kill an entire line if the cursor is at the beginning of line
 (setq case-fold-search t) ;; make searches case insensitive
 (setq comment-multi-line t)
 (setq inhibit-startup-message t) ;; don't show the gnu splash screen
@@ -71,9 +71,6 @@
 (setq tramp-default-method "ssh") ;; tramp defaults
 (setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/")))) ;; save all backup file in this directory.
 (setq confirm-kill-emacs 'yes-or-no-p) ;; ask if I'm sure when quitting
-(setq-default indent-tabs-mode nil)
-(setq-default fill-column 75) ;; the fill column influences how Emacs justifies paragraphs
-(setq default-major-mode 'text-mode) ;; set major mode to text mode by default
 ;; Ignore case when completing filenames
 ;;(setq completion-ignore-case t) ;; no!!!
 (setq read-file-name-completion-ignore-case t) ;; yes!!!
@@ -86,16 +83,20 @@
         (height . 100)))
 (setq frame-title-format ;; set title to show file name or buffer name
       '(buffer-file-name "%f" ("%b")))
-;; display all faces: M-x list-faces-display
+(setq-default indent-tabs-mode nil)
+(setq-default fill-column 80) ;; the fill column influences how Emacs justifies paragraphs
+(setq default-major-mode 'text-mode) ;; set major mode to text mode by default
+;; n.b. display all faces: M-x list-faces-display
 (set-face-foreground 'minibuffer-prompt "white")
 (set-face-background 'fringe "black")
 (fset 'yes-or-no-p 'y-or-n-p) ;; make all "yes or no" prompts show "y or n" instead
+;; (setq auto-fill-mode 1) ;; lines are automatically wrapped when the cursor goes beyond the column limit
 ;; (setq make-backup-files nil) ;; Don't want any backup files
 ;; (setq auto-save-default nil) ;; Don't want any auto saving
 ;; (setq modifier-keys-are-sticky t) ;; sticky modifier keys
 ;; (setq-default tab-width 4)
-;; (setq-default truncate-lines t)
-;; (set-fill-column 120)
+;; (setq-default truncate-lines nil)
+;; (set-fill-column 80)
 
 ;;;;;;;;;;;;;;;;;;
 ;; KEY BINDINGS ;;
@@ -164,9 +165,9 @@
 ;;;;;;;;;;
 
 (add-hook 'text-mode-hook
-	  (turn-on-auto-fill)
+	  ;; (turn-on-auto-fill)
 	  (setq fill-column 80)
-	  ;;(ispell-change-dictionary "british")
+	  ;; (ispell-change-dictionary "british")
           )
 
 ;;;;;;;;;;;;;;;;
