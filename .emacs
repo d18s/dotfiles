@@ -84,7 +84,7 @@
 (setq frame-title-format ;; set title to show file name or buffer name
       '(buffer-file-name "%f" ("%b")))
 (setq-default indent-tabs-mode nil)
-(setq-default fill-column 80) ;; the fill column influences how Emacs justifies paragraphs
+;; (setq-default fill-column 80) ;; the fill column influences how Emacs justifies paragraphs
 (setq default-major-mode 'text-mode) ;; set major mode to text mode by default
 ;; n.b. display all faces: M-x list-faces-display
 (set-face-foreground 'minibuffer-prompt "white")
@@ -164,11 +164,11 @@
 ;; TEXT ;;
 ;;;;;;;;;;
 
-(add-hook 'text-mode-hook
-	  ;; (turn-on-auto-fill)
-	  (setq fill-column 80)
-	  ;; (ispell-change-dictionary "british")
-          )
+;; (add-hook 'text-mode-hook
+;; 	  (turn-on-auto-fill)
+;; 	  (setq fill-column 80)
+;; 	  (ispell-change-dictionary "british")
+;;           )
 
 ;;;;;;;;;;;;;;;;
 ;; JAVASCRIPT ;;
