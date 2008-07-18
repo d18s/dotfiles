@@ -86,8 +86,10 @@
 (setq-default indent-tabs-mode nil) ;; don't insert tabs
 (setq default-major-mode 'text-mode) ;; set major mode to text mode by default
 ;; n.b. display all faces: M-x list-faces-display
-(set-face-foreground 'minibuffer-prompt "white")
-(set-face-background 'fringe "white")
+(cond (window-system
+       (set-face-foreground 'minibuffer-prompt "white")
+       (set-face-background 'fringe "white")
+       ))
 (fset 'yes-or-no-p 'y-or-n-p) ;; make all "yes or no" prompts show "y or n" instead
 ;; (setq-default fill-column 80) ;; the fill column influences how Emacs justifies paragraphs
 ;; (setq-default truncate-lines nil)
