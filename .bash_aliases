@@ -3,6 +3,7 @@ alias ..='cd ..'
 alias .='pwd'
 alias cp='cp -i'
 alias emacs='emacs -nw'
+alias semacs='sudo emacs -nw'
 alias firefox='firefox &> /dev/null &'
 alias la='ls -la'
 alias ll='ls -l'
@@ -11,6 +12,7 @@ alias rm='rm -i'
 alias s='cd ~-'
 alias savepackages='dpkg --get-selections > .packages'
 alias update='sudo apt-get update && sudo apt-get dist-upgrade'
+
 if [ "$TERM" != "dumb" ]; then
     alias ls='ls -h --color=auto'
 fi
