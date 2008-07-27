@@ -204,7 +204,7 @@
 ;; C++ ;;
 ;;;;;;;;;
 
-(setq-default c-basic-offset 2)
+(setq-default c-basic-offset 4)
 
 ;; Load c++-mode in .h files
 (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
