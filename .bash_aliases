@@ -25,3 +25,7 @@ alias svnst='svn st | grep ^[ACDM]'
 alias gitrm='git status | grep deleted | cut -f2 | cut -f5 -d" " | xargs git rm'
 alias gitsize='git-ls-files | xargs du -ch'
 alias gitst='git status | less'
+alias push='git push'
+alias pull='pull'
+
+alias songbird='/opt/Songbird/songbird &> /dev/null &'
